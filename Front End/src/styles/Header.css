@@ -18,7 +18,7 @@ body.dark-mode {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px; /* Espace entre les sections principales */
+  gap: 20px; 
 }
 
 .logo {
@@ -41,19 +41,18 @@ body.dark-mode {
   color: #6366f1;
 }
 
-/* Section centrale : Navigation */
 .nav {
   display: flex;
-  justify-content: space-evenly; /* Répartit les liens uniformément */
+  justify-content: space-evenly; 
   align-items: center;
-  flex: 1; /* Prend tout l'espace disponible entre logo et profil */
-  gap: 15px; /* Espace minimal entre les liens */
+  flex: 1; 
+  gap: 15px; 
 }
 
 .nav a {
   text-decoration: none;
   color: #333;
-  white-space: nowrap; /* Empêche les liens de se couper */
+  white-space: nowrap; 
   transition: color 0.3s ease;
 }
 
@@ -61,12 +60,12 @@ body.dark-mode {
   color: #0073e6;
 }
 
-/* Section droite : Actions utilisateur */
+
 .user-actions {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0; /* Empêche cette section de rétrécir */
+  flex-shrink: 0; 
 }
 
 .language-select,
@@ -112,13 +111,27 @@ body.dark-mode {
 .dropdown button {
   display: block;
   padding: 10px 15px;
-  text-align: left;
+  text-align: center;
   border: none;
   background: none;
   width: 100%;
   cursor: pointer;
   color: #333;
   text-decoration: none;
+}
+
+.dropdown .language-select {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px auto; 
+  display: block; 
+  text-align: center;
+}
+.dropdown .darkmode-btn {
+  width: 90%;
+  margin: 5px auto;
+  display: block;
+  text-align: center;
 }
 
 .dropdown a:hover,
@@ -129,6 +142,12 @@ body.dark-mode {
 /* Dark mode */
 body.dark-mode .header {
   background-color: #2d2d2d;
+}
+body.dark-mode .logo span {
+  font-weight: bold;
+  font-size: 20px;
+  white-space: nowrap;
+  color: #6366f1;
 }
 
 body.dark-mode .nav a {

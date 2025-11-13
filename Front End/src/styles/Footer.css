@@ -1,8 +1,8 @@
 .footer {
   width: 100%;
-  background-color: #0073e6;
+  background: linear-gradient(90deg, #6366f1, #5b4cba);
   box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-  margin-top: auto; /* Pour coller le footer en bas */
+  margin-top: auto; 
 }
 
 .footer-container {
@@ -23,10 +23,10 @@
 
 /* Dark mode */
 body.dark-mode .footer {
-  background-color: #2d2d2d;
+  background: linear-gradient(20deg, #6366f1, #323232);
   box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
 }
 
 body.dark-mode .copyright {
-  color: #aaa;
+  color: #ffffff;
 }

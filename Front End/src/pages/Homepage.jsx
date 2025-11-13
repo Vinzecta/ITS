@@ -11,7 +11,7 @@ const Homepage = () => {
   return (
     <div className="homepage">
       <section className="hero">
-        <h1>Welcome to MyTutor</h1>
+        <h1>Welcome to EduFlow</h1>
         <p>Learn new skills online and improve your career</p>
         <a href="/explore-courses" className="hero-btn">Explore Courses</a>
       </section>
