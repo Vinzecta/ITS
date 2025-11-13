@@ -26,19 +26,6 @@ const Header = () => {
           <Link to="/about-us">About Us</Link>
           <Link to="/contact-us">Contact Us</Link>
 
-          <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="language-select"
-          >
-            <option value="EN">EN</option>
-            <option value="FR">FR</option>
-          </select>
-
-          <button onClick={toggleDarkMode} className="darkmode-btn">
-            {darkMode ? "🌙" : "☀️"}
-          </button>
-
           <div className="profile-menu">
             <img
               src="https://i.pravatar.cc/40"
@@ -47,6 +34,18 @@ const Header = () => {
             />
             <div className="dropdown">
               <Link to="/profile">Profile</Link>
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="language-select"
+              >
+                <option value="EN">EN</option>
+                <option value="FR">FR</option>
+              </select>
+
+              <button onClick={toggleDarkMode} className="darkmode-btn">
+                {darkMode ? "🌙" : "☀️"}
+              </button>
               <button>Log out</button>
             </div>
           </div>

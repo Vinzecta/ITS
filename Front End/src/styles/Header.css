@@ -21,11 +21,12 @@ body.dark-mode {
   gap: 20px; /* Espace entre les sections principales */
 }
 
-/* Section gauche : Logo + MyTutor */
 .logo {
   display: flex;
   align-items: center;
-  flex-shrink: 0; /* Empêche le logo de rétrécir */
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
 }
 
 .logo img {
@@ -36,7 +37,8 @@ body.dark-mode {
 .logo span {
   font-weight: bold;
   font-size: 20px;
-  white-space: nowrap; /* Empêche le texte de se couper */
+  white-space: nowrap;
+  color: #6366f1;
 }
 
 /* Section centrale : Navigation */
