@@ -1,0 +1,32 @@
+.course-card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.course-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.course-content {
+  padding: 15px;
+}
+
+.course-content h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.course-content p {
+  color: #666;
+  font-size: 14px;
+}

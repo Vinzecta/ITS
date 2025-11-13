@@ -1,0 +1,148 @@
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Espace entre les sections principales */
+}
+
+/* Section gauche : Logo + MyTutor */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Empêche le logo de rétrécir */
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo span {
+  font-weight: bold;
+  font-size: 20px;
+  white-space: nowrap; /* Empêche le texte de se couper */
+}
+
+/* Section centrale : Navigation */
+.nav {
+  display: flex;
+  justify-content: space-evenly; /* Répartit les liens uniformément */
+  align-items: center;
+  flex: 1; /* Prend tout l'espace disponible entre logo et profil */
+  gap: 15px; /* Espace minimal entre les liens */
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap; /* Empêche les liens de se couper */
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #0073e6;
+}
+
+/* Section droite : Actions utilisateur */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0; /* Empêche cette section de rétrécir */
+}
+
+.language-select,
+.darkmode-btn {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.profile-menu .dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 150px;
+}
+
+.profile-menu:hover .dropdown {
+  display: block;
+}
+
+.dropdown a,
+.dropdown button {
+  display: block;
+  padding: 10px 15px;
+  text-align: left;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Dark mode */
+body.dark-mode .header {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .nav a {
+  color: #fff;
+}
+
+body.dark-mode .dropdown {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .dropdown a,
+body.dark-mode .dropdown button {
+  color: #fff;
+}
+
+body.dark-mode .dropdown a:hover,
+body.dark-mode .dropdown button:hover {
+  background-color: #3d3d3d;
+}
