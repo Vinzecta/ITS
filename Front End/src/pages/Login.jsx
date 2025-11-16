@@ -1,7 +1,7 @@
 import "../styles/Fonts.css"
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ErrorMessage from "../components/ErrorMessage";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
