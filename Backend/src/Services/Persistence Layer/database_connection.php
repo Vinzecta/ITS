@@ -1,5 +1,5 @@
 <?php 
-    require_once __DIR__ . '/../../Config/dbConnect.php';
+    require_once __DIR__ . '/../../../Config/dbConnect.php';
     class database_connection {
         private static ?database_connection $db_instance = null;
         private static ?PDO $conn = null;
