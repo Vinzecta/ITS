@@ -26,7 +26,15 @@
   gap: 18px;
 }
 
-.page-number,
+.page-number{
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    color: #7e57ff;
+    transition: 0.2s ease;
+}
+
 .page-arrow {
   background: none;
   border: none;
@@ -61,4 +69,9 @@
   .explore-grid {
     grid-template-columns: 1fr;
   }
+}
+
+body.dark-mode .explore-page {
+  background-color: #2d2d2d;
+  color: #d4d2d2;
 }
