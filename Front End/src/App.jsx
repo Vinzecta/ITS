@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ExploreCourses from "./pages/ExploreCourses";
+import MyCourses from "./pages/MyCourses";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/explore-courses" element={<ExploreCourses />} />
+        <Route path="/your-courses" element={<MyCourses />} />
       </Routes>
     </Router>
   );

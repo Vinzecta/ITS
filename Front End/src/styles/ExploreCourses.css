@@ -75,3 +75,25 @@ body.dark-mode .explore-page {
   background-color: #2d2d2d;
   color: #d4d2d2;
 }
+
+.explore-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* espace entre le titre+button et la grille */
+}
+
+.add-course-page-button {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.add-course-page-button:hover {
+  background-color: #5c3bff;
+}
