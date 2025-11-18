@@ -22,23 +22,11 @@ class security_service {
     }
 
     public function user_login($email, $password) {
-        if(!security_utils::validate_email($email) || !security_utils::validate_password($password)) {
-            return  [
-                        "success" => false,
-                        "message" => "Invalid email or password format! Try again!"
-                    ];
-        }
         return $this->authentication->user_login($email, $password);
     }
 
     public function student_register($email, $password) {
-        if(!security_utils::validate_email($email) && !security_utils::validate_password($password)) {
-            return  [
-                        "success" => false,
-                        "message" => "Invalid email or password format! Try again!"
-                    ];
-        }
-        return $this->authentication->user_login($email, $password);
+        return $this->user_register->student_register($email, $password);
     }
 
 }
