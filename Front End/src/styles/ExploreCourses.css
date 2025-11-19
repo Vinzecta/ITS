@@ -1,6 +1,6 @@
 .explore-page {
   padding: 40px;
-  background: #f2efef;
+  background: #f9f9f9;
   min-height: 100vh;
 }
 
@@ -73,7 +73,7 @@
 
 body.dark-mode .explore-page {
   background-color: #2d2d2d;
-  color: #d4d2d2;
+  color: #bebebe;
 }
 
 .explore-header {

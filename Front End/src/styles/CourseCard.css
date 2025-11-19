@@ -6,6 +6,13 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   margin: 10px;
   min-width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.course-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
 }
 
 .course-title-rectangle {
@@ -13,6 +20,7 @@
   color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 /* On applique des couleurs selon la position */
@@ -38,13 +46,15 @@ body.dark-mode .course-card:nth-child(3n+2) .course-title-rectangle {
 }
 
 body.dark-mode .course-card:nth-child(3n+3) .course-title-rectangle {
-  background: #e3993e; /*linear-gradient(135deg, #d38ab0 0%, #dca0b5 100%);*/
+  background: #e3993e;
 }
 
 .course-description {
   padding: 15px;
   font-size: 1rem;
   color: #5d5c5c;
+  background: #f3f3f3;
+  transition: color 0.3s ease, background 0.3s ease;
 }
 
 /* Mode nuit pour le texte */
