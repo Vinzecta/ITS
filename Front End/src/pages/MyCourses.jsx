@@ -37,7 +37,7 @@ const MyCourses = () => {
             className="add-course-page-button"
             onClick={() => navigate("/explore-courses")}
           >
-            Add Course
+            Register New Course
           </button>
         </div>
 

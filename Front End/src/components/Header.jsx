@@ -28,7 +28,7 @@ const Header = () => {
 
         <nav className="nav">
           <Link to="/explore-courses">Explore Courses</Link>
-          <Link to="/your-courses">Your Courses</Link>
+          <Link to="/my-courses">My Courses</Link>
           <Link to="/about-us">About Us</Link>
           <Link to="/contact-us">Contact Us</Link>
 
@@ -36,10 +36,11 @@ const Header = () => {
             {user ? (
               <>
                 <img
-                  src="https://i.pravatar.cc/40"
+                  src="https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80"
                   alt="Avatar"
                   className="avatar"
                 />
+                <span className="user-name">{user.name}</span>
                 <div className="dropdown">
                   <Link to="/profile">Profile</Link>
                   <button onClick={toggleDarkMode} className="darkmode-btn">
@@ -49,12 +50,24 @@ const Header = () => {
                 </div>
               </>
             ) : (
-              <button
-                onClick={() => navigate("/login")}
-                className="login-btn"
-              >
-                Login
-              </button>
+               <>
+                <img
+                  src="https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80"
+                  alt="Avatar"
+                  className="avatar"
+                />
+                <div className="dropdown">
+                  <button onClick={toggleDarkMode} className="darkmode-btn">
+                    {darkMode ? "🌙" : "☀️"}
+                  </button>
+                  <button
+                    onClick={() => navigate("/login")}
+                    className="login-btn"
+                  >
+                    Log in / Sign up
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </nav>
