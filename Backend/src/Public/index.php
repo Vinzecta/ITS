@@ -8,8 +8,14 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../Controller/auth_controller.php';
 require_once __DIR__ . '/../Controller/register_controller.php';
 require_once __DIR__ . '/../Services/Security/security_service.php';
+require_once __DIR__ . '/../Services/Security/authorization_middleware.php';
+require_once __DIR__ . '/../Services/Security/jwt_service.php';
+require_once __DIR__ . '/../../Config/jwt_key.php';
 $request_method = $_SERVER['REQUEST_METHOD'];
 $request_uri = $_SERVER['REQUEST_URI'];
+
+$jwt_service = new jwt_service(jwt_key: JWT_KEY);
+$authorization_middleware = new authorization_middleware($jwt_service);
 
 $path = parse_url($request_uri, PHP_URL_PATH);
 try {
@@ -44,12 +50,22 @@ try {
             };
             break;
         case 'GET':
-            http_response_code(200);
-            echo json_encode(['message' => 'Reached GET route', 'uri' => $request_uri]);
+            $segments = explode('/', trim($path, '/'));
+            switch($segments[1]) {
+                case 'teacher_profile':
+                    $authorization_middleware->authorize_request($segments[1]);
+                    http_response_code(200);
+                    echo json_encode(['message' => 'Reached GET teacher_profile route', 'uri' => $request_uri]);
+                    break;
+                default:
+                    http_response_code(404);
+                    break;
+            }
             break;
         default:
             http_response_code(403);
             echo json_encode(['error' => 'Method Not Allowed']);
+            break;
     } 
 } catch(Throwable $e) {
     error_log("Unhandled Error: " . $e->getMessage());
