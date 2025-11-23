@@ -23,7 +23,7 @@ CREATE TABLE `user` (
 
   name VARCHAR(200),
 
-  role VARCHAR(50),
+  role ENUM('Student', 'Teacher', 'Admin'),
 
   is_active BOOLEAN DEFAULT 1,
 

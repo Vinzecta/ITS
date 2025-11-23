@@ -24,6 +24,13 @@ try {
                     http_response_code($respond['status']);
                     echo json_encode($respond['body']);
                     break;
+                case 'teacher_register':
+                    $register_controller = new register_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $register_controller->teacher_register($request_data);
+                    http_response_code(response_code: $respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
                 case 'user_login':
                     $auth_controller = new auth_controller(new security_service());
                     $request_data = json_decode(file_get_contents("php://input"), true);
