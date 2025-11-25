@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS its_db;
+CREATE DATABASE IF NOT EXISTS its;
 
-USE its_db;
+USE its;
 
 
 -- CREATE TABLE role (
