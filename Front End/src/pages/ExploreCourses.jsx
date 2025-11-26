@@ -5,18 +5,18 @@ import CourseCard from "../components/CourseCard";
 import "../styles/ExploreCourses.css";
 
 const courses = [
-  { title: "React for Beginners", description: "Learn React step by step"},
-  { title: "Advanced Python", description: "Deep dive into Python" },
-  { title: "Machine Learning", description: "Intro to ML concepts" },
-  { title: "UI/UX Basics", description: "Design better UI" },
-  { title: "JavaScript Mastery", description: "Master JS" },
-  { title: "Node.js Crash Course", description: "Backend with Node" },
-  { title: "Cybersecurity 101", description: "Basics of security" },
-  { title: "SQL for Beginners", description: "Learn SQL" },
-  { title: "Docker Essentials", description: "Intro to Docker" },
-  { title: "AI Fundamentals", description: "Basics of AI" },
-  { title: "Cloud Computing", description: "Cloud basics" },
-  { title: "Data Structures", description: "Algorithms & Structures" },
+  { id: 1, title: "React for Beginners", description: "Learn React step by step"},
+  { id: 2, title: "Advanced Python", description: "Deep dive into Python" },
+  { id: 3, title: "Machine Learning", description: "Intro to ML concepts" },
+  { id: 4, title: "UI/UX Basics", description: "Design better UI" },
+  { id: 5, title: "JavaScript Mastery", description: "Master JS" },
+  { id: 6, title: "Node.js Crash Course", description: "Backend with Node" },
+  { id: 7, title: "Cybersecurity 101", description: "Basics of security" },
+  { id: 8, title: "SQL for Beginners", description: "Learn SQL" },
+  { id: 9, title: "Docker Essentials", description: "Intro to Docker" },
+  { id: 10, title: "AI Fundamentals", description: "Basics of AI" },
+  { id: 11, title: "Cloud Computing", description: "Cloud basics" },
+  { id: 12, title: "Data Structures", description: "Algorithms & Structures" },
 ];
 
 const ITEMS_PER_PAGE = 9;
@@ -41,9 +41,9 @@ const ExploreCourses = () => {
         <h1 className="explore-title">Explore Courses</h1>
 
         <div className="explore-grid">
-          {currentCourses.map((course, idx) => (
+          {currentCourses.map((course) => (
             <CourseCard
-              key={idx}
+              key={course.id}
               course={course}
             />
           ))}

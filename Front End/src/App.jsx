@@ -6,6 +6,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ExploreCourses from "./pages/ExploreCourses";
 import MyCourses from "./pages/MyCourses";
 import { AuthProvider } from "./context/AuthContext";
+import CoursesPage from "./pages/CoursePage";
+
 
 const App = () => {
   return (
@@ -15,9 +17,10 @@ const App = () => {
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/explore-courses" element={<ExploreCourses />} />
-        <Route path="/my-courses" element={<MyCourses />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/explore-courses" element={<ExploreCourses />} />
+          <Route path="/my-courses" element={<MyCourses />} />
+          <Route path="/course/:id" element={<CoursesPage />} />
       </Routes>
     </Router>
     </AuthProvider>

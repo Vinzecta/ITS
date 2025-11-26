@@ -21,6 +21,15 @@
   font-size: 1.5rem;
   font-weight: bold;
   transition: background 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.course-title-rectangle:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 /* On applique des couleurs selon la position */
@@ -62,3 +71,4 @@ body.dark-mode .course-description {
   background: #5d5c5c;
   color: #eee;
 }
+
