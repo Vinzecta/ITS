@@ -1,28 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CourseCard from "../components/CourseCard";
 import "../styles/ExploreCourses.css";
-
-const courses = [
-  { title: "React for Beginners", description: "Learn React step by step"},
-  { title: "Advanced Python", description: "Deep dive into Python" },
-  { title: "Machine Learning", description: "Intro to ML concepts" },
-  { title: "UI/UX Basics", description: "Design better UI" },
-  { title: "JavaScript Mastery", description: "Master JS" },
-  { title: "Node.js Crash Course", description: "Backend with Node" },
-  { title: "Cybersecurity 101", description: "Basics of security" },
-  { title: "SQL for Beginners", description: "Learn SQL" },
-  { title: "Docker Essentials", description: "Intro to Docker" },
-  { title: "AI Fundamentals", description: "Basics of AI" },
-  { title: "Cloud Computing", description: "Cloud basics" },
-  { title: "Data Structures", description: "Algorithms & Structures" },
-];
+import { courses } from "../components/ListCourse.jsx";
 
 const ITEMS_PER_PAGE = 9;
 
 const ExploreCourses = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const totalPages = Math.ceil(courses.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -41,10 +29,11 @@ const ExploreCourses = () => {
         <h1 className="explore-title">Explore Courses</h1>
 
         <div className="explore-grid">
-          {currentCourses.map((course, idx) => (
+          {currentCourses.map((course) => (
             <CourseCard
-              key={idx}
+              key={course.id}
               course={course}
+              onClick={() => navigate(`/course/${course.id}`)} // ici on redirige vers page register
             />
           ))}
         </div>
