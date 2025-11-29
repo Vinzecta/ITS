@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/CourseRegistered.css";
 import { courses } from "../components/ListCourse.jsx";
+import { FileText, Download } from "lucide-react";
 
 const MyCoursePage = () => {
   const { id } = useParams();
@@ -58,6 +59,7 @@ const MyCoursePage = () => {
 
         {/* CONTENT */}
         <main className="course-content">
+          {/* OVERVIEW */}
           {activeSection === "overview" && (
             <div className="course-detail-card">
               <h2>Course Overview</h2>
@@ -74,26 +76,124 @@ const MyCoursePage = () => {
             </div>
           )}
 
-          {activeSection === "chapters" && (
+          {/* CHAPTERS */}
+         {activeSection === "chapters" && (
             <div className="course-detail-card">
-              <h2>Course Chapters</h2>
-              <ul>
-                {course.chapters?.map((chapter, index) => (
-                  <li key={index}>{chapter}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+                <h2>Course Chapters</h2>
 
+                <table className="styled-table">
+                <thead>
+                    <tr>
+                    <th>Chapter</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Learning Outcomes</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {course.topics.map((topic, index) => (
+                    <tr key={index}>
+                        {/* Chapter */}
+                        <td>{topic.chapter}</td>
+
+                        {/* Title */}
+                        <td>
+                        <strong>{topic.title}</strong>
+                        <br />
+                        </td>
+
+                        {/* Description */}
+                        <td>
+                        <span>{topic.description}</span>
+                        </td>
+
+                        {/* Learning Outcomes */}
+                        <td>
+                        <ul>
+                            {topic.learningObjectives.map((obj, i) => (
+                            <li key={i}>{obj}</li>
+                            ))}
+                        </ul>
+                        </td>
+                    </tr>
+                    ))}
+                </tbody>
+                </table>
+            </div>
+            )}
+
+
+          {/* MATERIALS */}
           {activeSection === "materials" && (
             <div className="course-detail-card">
-              <h2>Materials</h2>
-            </div>
-          )}
+                <h2>Materials</h2>
 
+                {course.topics.map((topic) => (
+                <div key={topic.chapter} className="material-row">
+                    <div className="material-left">
+                    <div className="pdf-icon">
+                        <FileText className="pdf-icon-svg" />
+                    </div>
+
+                    <div className="material-info">
+                        <div className="material-title">
+                        Chapter {topic.chapter} – {topic.title}.pdf
+                        </div>
+                        <div className="material-meta">
+                        {topic.size}
+                        </div>
+                    </div>
+                    </div>
+
+                    <a href={topic.fileUrl} download className="download-btn">
+                        <Download className="download-icon" />
+                    </a>
+                </div>
+                ))}
+            </div>
+            )}
+
+          {/* PROGRESS */}
           {activeSection === "progress" && (
             <div className="course-detail-card">
               <h2>Progress Tracking</h2>
+              <table className="styled-table">
+                <thead>
+                    <tr>
+                    <th>Chapter</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {course.topics.map((topic, index) => (
+                    <tr key={index}>
+                        {/* Chapter */}
+                        <td>{topic.chapter}</td>
+
+                        {/* Title */}
+                        <td>
+                        <span>{topic.title}</span>
+                        </td>
+
+                        {/* Status */}
+                        <td>
+                            <span
+                                className={`status-badge ${
+                                topic.status === "COMPLETED"
+                                    ? "status-completed"
+                                    : "status-not-started"
+                                }`}
+                            >
+                                {topic.status === "COMPLETED" ? "Completed" : "Not Started"}
+                            </span>
+                        </td>
+                    </tr>
+                    ))}
+                </tbody>
+                </table>
             </div>
           )}
         </main>
