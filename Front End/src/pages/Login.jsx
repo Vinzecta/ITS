@@ -41,7 +41,7 @@ export default function Login() {
                 localStorage.setItem("user", userData);
                 if (authorization(userData.role, ["admin"])) {
                     navigate("/admin-dashboard");
-                } else if (authorization(userData.role, [""])) {
+                } else if (authorization(userData.role, ["student"])) {
                     navigate("/");
                 } else {
                     tempServerError = "Unauthorized role.";

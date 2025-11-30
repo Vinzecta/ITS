@@ -39,7 +39,7 @@ export default function AdminLayout() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Top Navigation Bar */}
-      <header className="top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 shadow-sm">
+      <header className="top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 shadow-sm sticky">
         <div className="h-full px-4 lg:px-6 flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center gap-4 ">
@@ -92,7 +92,7 @@ export default function AdminLayout() {
 
       {/* Sidebar */}
       <div className="flex h-fit">
-        <div className="flex w-[20%] shadow-sm h-[100%] flex-col">
+        <div className="flex w-[20%] shadow-sm h-screen flex-col sticky top-16 bg-white border-r border-slate-200 z-50">
           {/* Navigation */}
           <nav className="p-4 overflow-y-auto flex flex-col gap-2">
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-3 !mt-5">
