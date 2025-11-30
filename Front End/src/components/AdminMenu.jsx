@@ -91,7 +91,7 @@ export default function AdminLayout() {
       )} */}
 
       {/* Sidebar */}
-      <div className="flex h-fit">
+      <div className="h-screen flex">
         <div className="flex w-[20%] shadow-sm h-[100%] flex-col">
           {/* Navigation */}
           <nav className="p-4 overflow-y-auto flex flex-col gap-2">
@@ -150,7 +150,7 @@ export default function AdminLayout() {
             </button>
           </div>
         </div>
-        <div className="w-[70%] !mx-auto !mt-5 !pb-10">
+        <div className="w-[70%] !mx-auto !mt-5">
          <UserManagement />
         </div>
       </div>

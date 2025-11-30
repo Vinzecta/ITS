@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ExploreCourses from "./pages/ExploreCourses";
 import MyCourses from "./pages/MyCourses";
+import { AuthProvider } from "./context/AuthContext";
 import CoursesPage from "./pages/CoursePage";
 import CoursesDetailPage from "./pages/CourseRegisteredPage";
 import AdminLayout from "./components/AdminMenu";
@@ -12,6 +13,7 @@ import AdminLayout from "./components/AdminMenu";
 
 const App = () => {
   return (
+    <AuthProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -25,6 +27,7 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminLayout />} />
         </Routes>
       </Router>
+    </AuthProvider>
   );
 };
 
