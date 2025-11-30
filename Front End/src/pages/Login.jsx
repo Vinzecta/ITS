@@ -1,9 +1,11 @@
 import "../styles/Fonts.css"
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext, use} from "react";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../api/auth/login";
+import { jwtDecode } from "jwt-decode"
+import authorization from "../api/auth/authorization";
 
 export default function Login() {
     const [show, setShow] = useState(false);
@@ -34,11 +36,22 @@ export default function Login() {
         if (Object.values(newError).every(value => value == "")) {
            try {
             const response = await loginService.login(input.email, input.password);
-            console.log(response);
-            if (response.token) {
-                localStorage.setItem("token", response.token);
+            if (response.jwt_token) {
+                const userData = jwtDecode(response.jwt_token);
+                localStorage.setItem("user", userData);
+                // if (authorization(userData.role, ["admin"])) {
+                //     navigate("/admin-dashboard");
+                // } else if (authorization(userData.role, ["user"])) {
+                //     navigate("/");
+                // } else {
+                //     tempServerError = "Unauthorized role.";
+                //     setServerError(tempServerError);
+                // }
+                navigate("/");
+            } else {
+                tempServerError = "Login failed. Please try again.";
+                setServerError(tempServerError);
             }
-            navigate("/");
            } catch (err) {
             tempServerError = err.message;
             setServerError(tempServerError);
