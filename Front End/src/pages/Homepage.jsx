@@ -1,48 +1,45 @@
+import { useNavigate } from "react-router-dom";
 import CourseCard from "../components/CourseCard";
 import "../styles/Homepage.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-const courses = [
-  {
-    title: "Instagram Marketing Hacks",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
-  },
-  {
-    title: "Google Adsense Hacks",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #fbc7a4 0%, #f9d3b4 100%)",
-  },
-  {
-    title: "Hit A Backhand Like Pro",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #f9c1d9 0%, #fbc4d9 100%)",
-  },
-];
+import { courses } from "../components/ListCourse.jsx";
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
+  // ✅ on garde uniquement les cours id 1, 2, 3
+  const featuredCourses = courses.filter(course =>
+    [1, 2, 3].includes(course.id)
+  );
+
   return (
     <>
       <Header />
 
       <div className="homepage">
-        {/* Hero Section */}
+        {/* Hero */}
         <section className="hero">
           <h1>Welcome to EduFlow</h1>
           <p>Learn new skills online and improve your career</p>
-          <a href="/explore-courses" className="hero-btn">Explore Courses</a>
+          <button
+            className="hero-btn"
+            onClick={() => navigate("/explore-courses")}
+          >
+            Explore Courses
+          </button>
         </section>
 
-        {/* Courses Section */}
+        {/* Featured courses */}
         <section className="courses-section">
           <h2>Featured Courses</h2>
+
           <div className="courses-grid">
-            {courses.map((course, idx) => (
+            {featuredCourses.map(course => (
               <CourseCard
-                key={idx}
+                key={course.id}
                 course={course}
-                //color={course.color} // passe la couleur au composant
+                onClick={() => navigate(`/course/${course.id}`)}
               />
             ))}
           </div>
