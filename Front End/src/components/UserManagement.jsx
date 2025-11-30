@@ -10,44 +10,87 @@ export default function UserManagement() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const [form, setForm] = useState({
-        email: "",
-        password: "",
-        name: "",
-        role: "Student"
-      });
-    const handleCreateUser = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(
-            "http://localhost/ITS/Backend/src/Endpoint/admin_access/add_user.php",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email: form.email,     
-                    password: form.password, 
-                    name: form.name,        
-                    role: form.role}),
-            }
-            );
+    email: "",
+    password: "",
+    name: "",
+    role: "Student"
+  });
 
-            const data = await response.json();
-            console.log(data);
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "http://localhost/ITS/Backend/src/Endpoint/admin_access/add_user.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            email: form.email,
+            password: form.password,
+            name: form.name,
+            role: form.role
+          }),
+        }
+      );
 
-            if (!response.ok) {
-            alert(data.message || data.error || "Failed to create user");
-            return;
-            }
+      const data = await response.json();
+      console.log(data);
 
-            alert("User created successfully!");
+      if (!response.ok) {
+        alert(data.message || data.error || "Failed to create user");
+        return;
+      }
 
-            setShowModal(false);
-            fetchUsers();
-        } catch (err) {
-            console.error(err);
-            alert("Network error!");
+      alert("User created successfully!");
+      setShowModal(false);
+      setForm({ email: "", password: "", name: "", role: "Student" });
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      alert("Network error!");
     }
-    };
+  };
+
+  const handleDeleteClick = (user) => {
+    setUserToDelete(user);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!userToDelete) return;
+    console.log("Deleting user:", userToDelete);
+
+    try {
+      const response = await fetch(
+        "http://localhost/ITS/Backend/src/Endpoint/admin_access/delete_user.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ user_id: userToDelete.user_id })
+        }
+      );
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        alert(data.message || data.error || "Failed to delete user");
+        return;
+      }
+
+      alert("User deleted successfully");
+      setShowDeleteConfirm(false);
+      setUserToDelete(null);
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+      alert("Network error!");
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -55,20 +98,22 @@ export default function UserManagement() {
 
   const fetchUsers = async () => {
     try {
-      console.log("OK")
       setLoading(true);
-      const response = await fetch('http://localhost/ITS/Backend/src/Endpoint/admin_access/get_all_users.php', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'http://localhost/ITS/Backend/src/Endpoint/admin_access/get_all_users.php',
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        setUsers(data|| []);
+        setUsers(data || []);
         setError(null);
       } else {
         setError(data.error || 'Failed to fetch users');
@@ -121,65 +166,108 @@ export default function UserManagement() {
             Manage and monitor all system users
           </p>
         </div>
-        <button onClick={() => setShowModal(true)} className="flex items-center gap-2 !px-4 !py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all font-medium">
+        <button 
+          onClick={() => setShowModal(true)} 
+          className="flex items-center gap-2 !px-4 !py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all font-medium"
+        >
           <PersonAddOutlinedIcon fontSize="small" />
           Add New User
         </button>
       </div>
 
-        {
-            showModal && (
-                <div className="fixed inset-0 bg-black/40 flex items-center justify-center !z-50">
-                <form className="bg-white !p-6 rounded-xl shadow-xl w-full max-w-md space-y-4 flex flex-col gap-3">
-                <h3 className="text-lg font-bold text-slate-800">Create New User</h3>
+      {/* Create User Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center !z-50">
+          <div className="bg-white !p-6 rounded-xl shadow-xl w-full max-w-md flex flex-col gap-4">
+            <h3 className="text-lg font-bold text-slate-800">Create New User</h3>
 
-                <input
-                    type="text"
-                    placeholder="Email"
-                    value={form.email}
-                    name="email"
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full border !p-2 rounded-lg"
-                />
+            <input
+              type="text"
+              placeholder="Email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full border !p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={form.password}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
-                    className="w-full border !p-2 rounded-lg"
-                />
+            <input
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              className="w-full border !p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
 
-                <select
-                    value={form.role}
-                    name="role"
-                    onChange={(e) => setForm({ ...form, role: e.target.value })}
-                    className="w-full border !p-2 rounded-lg"
-                >
-                    <option value="Student">Student</option>
-                    <option value="Teacher">Teacher</option>
-                </select>
+            <input
+              type="text"
+              placeholder="Name (optional)"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full border !p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
 
-                <div className="flex justify-end gap-3">
-                    <button
-                    onClick={() => setShowModal(false)}
-                    className="!px-4 !py-2 rounded-lg bg-slate-200"
-                    >
-                    Cancel
-                    </button>
+            <select
+              value={form.role}
+              onChange={(e) => setForm({ ...form, role: e.target.value })}
+              className="w-full border !p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+            </select>
 
-                    <button
-                    onClick={handleCreateUser}
-                    className="!px-4 !py-2 rounded-lg bg-indigo-600 text-white"
-                    >
-                    Create
-                    </button>
-                </div>
-                </form>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="!px-4 !py-2 rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCreateUser}
+                className="!px-4 !py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+              >
+                Create
+              </button>
             </div>
-            )
-        }
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && userToDelete && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center !z-50">
+          <div className="bg-white !p-6 rounded-xl shadow-xl w-full max-w-md">
+            <h3 className="text-lg font-bold text-slate-800 mb-4">Confirm Delete</h3>
+            <p className="text-slate-600 mb-6">
+              Are you sure you want to delete user{' '}
+              <span className="font-semibold text-slate-800">{userToDelete.email}</span>?
+              <br />
+              <span className="text-sm text-red-600">This action cannot be undone.</span>
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => {
+                  setShowDeleteConfirm(false);
+                  setUserToDelete(null);
+                }}
+                className="!px-4 !py-2 rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleDeleteConfirm}
+                className="!px-4 !py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors font-medium"
+              >
+                Delete User
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Search Bar */}
       <div className="bg-white rounded-xl border border-slate-200 !p-4">
@@ -251,7 +339,7 @@ export default function UserManagement() {
                         {user.role}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="!px-6 !py-4 whitespace-nowrap">
                       <span className={`inline-flex !px-3 !py-1 text-xs font-semibold rounded-full border ${getStatusBadge(user.is_active)}`}>
                         {user.is_active ? 'Active' : 'Inactive'}
                       </span>
@@ -267,11 +355,21 @@ export default function UserManagement() {
                     </td>
                     <td className="!px-6 !py-4 whitespace-nowrap text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="!p-2 hover:bg-indigo-50 rounded-lg transition-colors group">
+                        <button 
+                          className="!p-2 hover:bg-indigo-50 rounded-lg transition-colors group"
+                          title="Edit user"
+                        >
                           <EditOutlinedIcon fontSize="small" className="text-slate-400 group-hover:text-indigo-600" />
                         </button>
-                        <button className="!p-2 hover:bg-red-50 rounded-lg transition-colors group">
-                          <DeleteOutlineOutlinedIcon fontSize="small" className="text-slate-400 group-hover:text-red-600" />
+                        <button 
+                          onClick={() => handleDeleteClick(user)}
+                          className="!p-2 hover:bg-red-50 rounded-lg transition-colors group"
+                          title="Delete user"
+                        >
+                          <DeleteOutlineOutlinedIcon 
+                            fontSize="small" 
+                            className="text-slate-400 group-hover:text-red-600" 
+                          />
                         </button>
                       </div>
                     </td>
