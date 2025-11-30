@@ -130,5 +130,30 @@ class admin_controller {
         // }
     }
 
+    public function get_all_users(): array {
+        try {
+            $respond = $this->security_service->get_all_users();
+            return  [
+                        "status" => 200,
+                        "body" => $respond
+                    ];
+        } catch(Exception $e) {
+            return  [
+                        "status" => 500,
+                        "body" => [
+                            "error" => $e->getMessage()
+                        ]
+                    ];
+        }
+
+        // try {
+        //     $users = $this->admin_DAO->fetch_all_users();
+        //     return ['status' => 200, 'body' => ['users' => $users]];
+        // } catch (Exception $e) {
+        //     error_log('admin_get_all_users error: ' . $e->getMessage());
+        //     return ['status' => 500, 'body' => ['error' => 'Server error while fetching users']];
+        // }
+    }
+
 }
 ?>
