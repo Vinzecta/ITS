@@ -39,15 +39,14 @@ export default function Login() {
             if (response.jwt_token) {
                 const userData = jwtDecode(response.jwt_token);
                 localStorage.setItem("user", userData);
-                // if (authorization(userData.role, ["admin"])) {
-                //     navigate("/admin-dashboard");
-                // } else if (authorization(userData.role, ["user"])) {
-                //     navigate("/");
-                // } else {
-                //     tempServerError = "Unauthorized role.";
-                //     setServerError(tempServerError);
-                // }
-                navigate("/");
+                if (authorization(userData.role, ["admin"])) {
+                    navigate("/admin-dashboard");
+                } else if (authorization(userData.role, [""])) {
+                    navigate("/");
+                } else {
+                    tempServerError = "Unauthorized role.";
+                    setServerError(tempServerError);
+                }
             } else {
                 tempServerError = "Login failed. Please try again.";
                 setServerError(tempServerError);

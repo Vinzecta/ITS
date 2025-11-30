@@ -74,6 +74,7 @@ export default function SignUp() {
             try {
                 let response;
                 if (role === "student") {
+                    console.log("ok")
                     response = await registerService.registerStudent(input.email, input.password);
                 } else {
                     response = await registerService.registerTeacher(input.email, input.password);
@@ -103,10 +104,6 @@ export default function SignUp() {
     function clickStudent() {
         setRole("student");
     }
-
-    useEffect(() => {
-        console.log(role);
-    }, [role]);
 
 
     return (
