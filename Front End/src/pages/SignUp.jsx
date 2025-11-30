@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { registerService } from "../api/auth/signup.jsx";
 
 export default function SignUp() {
-    const [tutor, setTutor] = useState(true);
-    const [student, setStudent] = useState(false);
+    const [role, setRole] = useState("tutor");
     const [show, setShow] = useState(false);
     const [input, setInput] = useState({email: "", password: "", confirmPass: ""});
     const [errors, setErrors] = useState({email: "", password: "", confirmPass: ""});
@@ -74,15 +73,14 @@ export default function SignUp() {
         if (Object.values(tempError).every(value => value == "")) {
             try {
                 let response;
-                if (student) {
+                if (role === "student") {
                     response = await registerService.registerStudent(input.email, input.password);
                 } else {
                     response = await registerService.registerTeacher(input.email, input.password);
                 }
                 
-                if (response.success) {
-                    alert("Registration successful! Please log in.");
-                    navigate("/log-in");
+                if (response.message === "Register successfully!") {
+                    navigate("/login");
                 } else {
                     setServerError(response.message || "Registration failed");
                 }
@@ -99,25 +97,28 @@ export default function SignUp() {
     }
 
     function clickTutor() {
-        setStudent(false);
-        setTutor(true);
+        setRole("tutor");
     }
 
     function clickStudent() {
-        setStudent(true);
-        setTutor(false)
+        setRole("student");
     }
+
+    useEffect(() => {
+        console.log(role);
+    }, [role]);
+
 
     return (
         <section className="montserrat-custom h-fit w-full flex flex-col !py-10 items-center justify-center  bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
             <h1 className="text-[40px] font-bold text-white">Choose a role!</h1>
             <div className={`flex gap-10 items-center justify-center !mb-10`}>
-                <div onClick={clickTutor} className={`flex flex-col w-[30%] !p-6 rounded-3xl ${tutor ? "bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-400" : "bg-white"} transition-transform duration-300 ease-in-out hover:scale-110`}>
+                <div onClick={clickTutor} className={`flex flex-col w-[30%] !p-6 rounded-3xl ${role === "tutor" ? "bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-400" : "bg-white"} transition-transform duration-300 ease-in-out hover:scale-110`}>
                     <img className={`w-[150px]`} src={teacher} alt="Teacher Logo" />
                     <p className="text-center">Tutor</p>
                 </div>
         
-                <div onClick={clickStudent} className={`flex flex-col w-[30%] !p-6 rounded-3xl ${student ? "bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-400" : "bg-white"} transition-transform duration-300 ease-in-out hover:scale-110`}>
+                <div onClick={clickStudent} className={`flex flex-col w-[30%] !p-6 rounded-3xl ${role === "student" ? "bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-400" : "bg-white"} transition-transform duration-300 ease-in-out hover:scale-110`}>
                     <img className="w-[150px]" src={studentRole} alt="Student Logo" />
                     <p className="text-center">Student</p>
                 </div>
