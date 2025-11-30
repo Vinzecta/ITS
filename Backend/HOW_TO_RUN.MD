@@ -28,7 +28,7 @@ Follow these steps to set up and run the backend of this project.
 ---
 
 ## 4. Install Project Dependencies
-- In the project root directory, run:
+- In the project Backend directory, run:
   ```bash
   composer install
   ```

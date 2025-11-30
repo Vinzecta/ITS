@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 require_once __DIR__ . '/../Controller/auth_controller.php';
 require_once __DIR__ . '/../Controller/register_controller.php';
 require_once __DIR__ . '/../Controller/admin_controller.php';
+require_once __DIR__ . '/../Controller/course_controller.php';
 require_once __DIR__ . '/../Services/Security/security_service.php';
 require_once __DIR__ . '/../Services/Security/authorization_middleware.php';
 require_once __DIR__ . '/../Services/Security/jwt_service.php';
@@ -71,7 +72,103 @@ try {
                     http_response_code($respond['status']);
                     echo json_encode($respond['body']);
                     break;
-                 //newly added section
+
+                case 'course_create':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->create_course($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'course_edit':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->edit_course($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'course_by_teacher':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->get_courses_by_teacher($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'course_delete':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->delete_course($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'unit_add':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->add_unit($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'unit_edit':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->edit_unit($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'unit_delete':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->delete_unit($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'content_add':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->add_content($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'content_edit':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->edit_content($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'content_delete':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->delete_content($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'enroll':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->enroll($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+
+                case 'get_enrolled_courses':
+                    $course_controller = new course_controller(new security_service());
+                    $request_data = json_decode(file_get_contents("php://input"), true);
+                    $respond = $course_controller->get_enrolled_courses($request_data);
+                    http_response_code($respond['status']);
+                    echo json_encode($respond['body']);
+                    break;
+                 //newly added section 
                 default:
                     http_response_code(404);
                     break;

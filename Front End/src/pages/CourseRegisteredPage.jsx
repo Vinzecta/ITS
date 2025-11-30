@@ -19,12 +19,10 @@ const MyCoursePage = () => {
   return (
     <>
       <Header />
-
       <div className="course-hero">
         <h1>{course.title}</h1>
         <p>{course.description}</p>
       </div>
-
       <div className="course-layout">
         {/* SIDEBAR */}
         <aside className="course-sidebar">
