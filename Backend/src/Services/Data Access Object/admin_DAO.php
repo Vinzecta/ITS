@@ -160,5 +160,18 @@ class admin_DAO {
             throw new Exception('Failed to retrieve user');
         }
     }
+
+    public function get_all_users() {
+            try {
+                $sql = 'SELECT user_id, email, role, is_active, created_at FROM user WHERE role != ? ORDER BY created_at DESC';
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute(['Admin']);
+                
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch(PDOException $e) {
+                error_log('Retrieve all users error: ' . $e->getMessage());
+                throw new Exception("Cannot retrieve users");
+            }
+        }
 }
 ?>
