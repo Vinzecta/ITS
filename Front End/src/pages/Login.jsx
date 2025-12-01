@@ -35,22 +35,14 @@ export default function Login() {
 
         if (Object.values(newError).every(value => value == "")) {
            try {
-            const response = await loginService.login(input.email, input.password);
-            if (response.jwt_token) {
-                const userData = jwtDecode(response.jwt_token);
-                localStorage.setItem("user", userData);
-                if (authorization(userData.role, ["admin"])) {
-                    navigate("/admin-dashboard");
-                } else if (authorization(userData.role, ["student"])) {
-                    navigate("/");
+                const response = await loginService.login(input.email, input.password);
+                if (1) {
+                    
                 } else {
-                    tempServerError = "Unauthorized role.";
+                    tempServerError = "Invalid email or password! Please try again.";
+                    console.log(tempServerError);
                     setServerError(tempServerError);
                 }
-            } else {
-                tempServerError = "Login failed. Please try again.";
-                setServerError(tempServerError);
-            }
            } catch (err) {
             tempServerError = err.message;
             setServerError(tempServerError);

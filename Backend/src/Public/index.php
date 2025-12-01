@@ -4,7 +4,13 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *'); // Adjust for production
+header('Access-Control-Allow-Methods: POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
 require_once __DIR__ . '/../Controller/auth_controller.php';
 require_once __DIR__ . '/../Controller/register_controller.php';
 require_once __DIR__ . '/../Controller/admin_controller.php';
@@ -182,6 +188,20 @@ try {
                     http_response_code(200);
                     echo json_encode(['message' => 'Reached GET teacher_profile route', 'uri' => $request_uri]);
                     break;
+                
+                case 'display_users':
+                    try {
+                        $security_service = new security_service();
+                        $admin_controller = new admin_controller($security_service);
+                        
+                        $result = $admin_controller->get_all_users();
+                        
+                        http_response_code($result['status']);
+                        echo json_encode($result['body']);
+                    } catch (Exception $e) {
+                        http_response_code(500);
+                        echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);
+                    }
                 default:
                     http_response_code(404);
                     break;

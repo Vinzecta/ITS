@@ -23,11 +23,10 @@ export default function UserManagement() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost/ITS/Backend/src/Endpoint/admin_access/add_user.php",
+        "http://localhost/its/admin_create",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "include",
           body: JSON.stringify({
             email: form.email,
             password: form.password,
@@ -66,11 +65,10 @@ export default function UserManagement() {
 
     try {
       const response = await fetch(
-        "http://localhost/ITS/Backend/src/Endpoint/admin_access/delete_user.php",
+        "http://localhost/its/admin_delete",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          credentials: "include",
           body: JSON.stringify({ user_id: userToDelete.user_id })
         }
       );
@@ -100,10 +98,9 @@ export default function UserManagement() {
     try {
       setLoading(true);
       const response = await fetch(
-        'http://localhost/ITS/Backend/src/Endpoint/admin_access/get_all_users.php',
+        'http://localhost/its/display_users',
         {
           method: 'GET',
-          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
