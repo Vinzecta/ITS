@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/CoursePage.css";
@@ -45,6 +45,37 @@ const CoursesPage = () => {
       </>
     );
   }
+
+  useEffect(() => {
+        const studentRender = async () => {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            navigate("/login");
+            return;
+          }
+    
+          try {
+            const response = await fetch("http://localhost/its/student_render", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: token,
+              },
+            });
+    
+            const data = await response.json();
+            console.log("Response data:", data.error);
+            if (data.error) {
+              navigate("/invalid-user")
+            }
+            
+          } catch (err) {
+            alert("Fail to render page")
+          }
+        };
+    
+        studentRender();
+      }, []);
 
   return (
     <>
