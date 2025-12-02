@@ -7,9 +7,9 @@ class authorization_middleware {
     public function __construct($jwt_service) {
         $this->jwt_service = $jwt_service;
         $this->actions_list_per_role = [
-            'Student' => [],
-            'Teacher' => ['teacher_profile'],
-            'Admins' => ['teacher_profile']
+            'student' => ['student_render'],
+            'teacher' => ['teacher_profile', 'tutor_render'],
+            'admin' => ['admin_create', 'display_users', 'admin_delete', 'admin_render']
         ];
     }
 
@@ -32,8 +32,8 @@ class authorization_middleware {
             }
         }catch(Exception $e) {
             http_response_code(401);
-            echo json_encode(value: ['JWT token: ' => $jwt_token]);
-            echo json_encode(value: ['error' => $e->getMessage()]);
+            echo json_encode(value: ['JWT token: ' => $jwt_token, 'error' => $e->getMessage()]);
+            // echo json_encode(value: ['error' => $e->getMessage()]);
             exit;
         }
 

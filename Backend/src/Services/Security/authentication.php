@@ -26,11 +26,20 @@ class authentication {
 
             // return jwt token
             $jwt_token = $this->jwt_service->generate_token($user['user_id'], $user['role'], 'its.com', 'its.com');
+            $navigation = '';
+            if ($user['role'] === 'admin') {
+                $navigation = '/admin-dashboard';
+            } else if ($user['role'] === 'teacher') {
+                $navigation = '/tutor-homepage';
+            } else {
+                $navigation = '/';
+            }
             return  [
                         "success" => true,
                         "body" => [
                             "message" => 'Login successfully',
-                            "jwt_token" => $jwt_token
+                            "jwt_token" => $jwt_token,
+                            "navigation" => $navigation
                         ]
                     ]; 
         }catch(Exception $e) {

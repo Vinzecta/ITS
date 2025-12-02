@@ -125,5 +125,9 @@ class security_service {
         return $this->enrollment->get_enrolled_courses($student_id);
     }
 
+    public function get_all_users() {
+        return $this->admin_DAO->get_all_users();
+    }
+
 }
 ?>

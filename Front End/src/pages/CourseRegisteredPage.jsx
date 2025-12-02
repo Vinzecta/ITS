@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/CourseRegistered.css";
 import { courses } from "../components/ListCourse.jsx";
 import { FileText, Download } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const MyCoursePage = () => {
   const { id } = useParams();
   const [activeSection, setActiveSection] = useState("overview");
+  const navigate = useNavigate();
 
   const course = courses.find((c) => c.id === parseInt(id));
 
@@ -16,12 +17,50 @@ const MyCoursePage = () => {
     return <h1>Cours non trouvé</h1>;
   }
 
+  useEffect(() => {
+      const studentRender = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+  
+        try {
+          const response = await fetch("http://localhost/its/student_render", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': localStorage.getItem('token') || ''
+            },
+          });
+  
+          const data = await response.json();
+          if (!response.ok) {
+            if (data.error) {
+              navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
+            }
+          }
+          
+        } catch (err) {
+          alert(err.message)
+        }
+      };
+  
+      studentRender();
+    }, []);
   return (
     <>
       <Header />
       <div className="course-hero">
-        <h1>{course.title}</h1>
-        <p>{course.description}</p>
+        <div className="course-hero-left">
+            <h1>{course.title}</h1>
+            <p>{course.description}</p>
+        </div>
       </div>
       <div className="course-layout">
         {/* SIDEBAR */}

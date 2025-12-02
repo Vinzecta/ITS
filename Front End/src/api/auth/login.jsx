@@ -1,5 +1,5 @@
 
-const LOGIN_URL = 'http://localhost/ITS/Backend/src/Endpoint/login/login.php'; // Update with your URL
+const LOGIN_URL = 'http://localhost/its/user_login'; // Update with your URL
 
 export const loginService = {
   async login(email, password) {
@@ -13,10 +13,10 @@ export const loginService = {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message);
       }
 
       return data;

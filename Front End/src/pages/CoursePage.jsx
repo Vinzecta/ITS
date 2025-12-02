@@ -1,58 +1,126 @@
-import { useParams, useNavigate} from 'react-router-dom';
-import { useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../styles/CoursePage.css";
-import { courses } from "../components/ListCourse.jsx";
-import { myCoursesIds } from "./MyCourses.jsx";
-import { AuthContext } from '../context/AuthContext.jsx';
+// import "../styles/CoursePage.css";
+import "../styles/CourseRegistered.css";
+import { courses } from '../components/ListCourse.jsx';
+//import { courses } from '../mock_data/courses.jsx';
+
+// Lưu danh sách course đã đăng ký (mock)
+export let myCoursesIds = [];
 
 const CoursesPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const course = courses.find(c => c.id === parseInt(id));
-  const { user } = useContext(AuthContext);
+
+  //const [inputPassword, setInputPassword] = useState(""); // password người dùng nhập
 
   const handleRegister = () => {
-    if (!user) {
-      alert("You must be logged in to register to a course.");
-      return
-    }
-
     if (!course) return;
 
+    // Kiểm tra password
+    // if (course.password !== inputPassword) {
+    //   alert("Incorrect password! Please enter the correct course password.");
+    //   return;
+    // }
+
+    // Kiểm tra đã đăng ký chưa
     if (myCoursesIds.includes(course.id)) {
       alert("You are already enrolled in this course.");
       return;
     }
 
+    // Thêm vào danh sách course đã đăng ký
     myCoursesIds.push(course.id);
     alert("The course has been successfully added to My Courses!");
   };
 
+  if (!course) {
+    return (
+      <>
+        <Header />
+        <p className="text-center !mt-20">Course not found.</p>
+        <Footer />
+      </>
+    );
+  }
+
+  useEffect(() => {
+      const studentRender = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+  
+        try {
+          const response = await fetch("http://localhost/its/student_render", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': localStorage.getItem('token') || ''
+            },
+          });
+  
+          const data = await response.json();
+          if (!response.ok) {
+            if (data.error) {
+              navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
+            }
+          }
+          
+        } catch (err) {
+          alert(err.message)
+        }
+      };
+  
+      studentRender();
+    }, []);
+
   return (
     <>
       <Header />
-      <div className="course-detail">
-        <button className="back-button" onClick={() => navigate('/explore-courses')}>
-          ← Back To Explore
-        </button>
 
-        <h1 style={{ textAlign: 'center' }}>{course.title}</h1>
+        <div className="course-hero">
+          <div className="course-hero-left">
+            <h1>{course.title}</h1>
+            <p>{course.description}</p>
+          </div>
+          
+          <div className="course-hero-right">
+            <button
+              className="register-button"
+              onClick={handleRegister}
+            >
+              Register
+            </button>
+          </div>
+        </div>
 
-        <h2>Course Details</h2>
+        <div className="course-detail-card !px-4">
+        <h4>Description</h4>
         <p>{course.detailedDescription}</p>
 
-        <h2>Learning Outcomes</h2>
+        <h4>Learning Objectives</h4>
         <ul>
-          {course.learningOutcomes?.map((outcome, index) => (
-            <li key={index}>{outcome}</li>
+          {course.learningOutcomes?.map((item, index) => (
+            <li key={index}>{item}</li>
           ))}
         </ul>
 
-        <button className="register-button" onClick={handleRegister}>
-          Register to the Course
+        {/* 🔑 Password Input */}
+        <div className="mt-6 flex flex-col max-w-sm">
+          <button className="back-button !mt-6 !mb-4 text-sm"  onClick={() => navigate('/explore-courses')}>
+          ← Back To Explore
         </button>
+        </div>
       </div>
       <Footer />
     </>

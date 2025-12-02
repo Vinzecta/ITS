@@ -2,17 +2,51 @@
   background: linear-gradient(90deg, #6366f1, #5b4cba);
   color: white;
   padding: 40px 60px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.course-hero h1 {
-  margin: 0;
-  font-size: 34px;
+.course-hero-left {
+  max-width: 70%;
+}
+
+.course-hero-left h1 {
   font-weight: bold;
+  font-size: 32px;
 }
 
-.course-hero p {
+.course-hero-left p {
   margin-top: 8px;
   opacity: 0.9;
+}
+
+.course-hero-right {
+  display: flex;
+  align-items: flex-start;
+  z-index: 10;
+}
+.course-hero-right .register-button {
+  background: linear-gradient(135deg, #5b7cfc 0%, #4a66d4 100%);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(91, 124, 252, 0.3);
+  pointer-events: auto;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.course-hero-right .register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(91, 124, 252, 0.4);
+  background: linear-gradient(135deg, #4a66d4 0%, #3b52b3 100%);
 }
 
 .course-layout {
@@ -237,4 +271,43 @@
   width: 18px;
   height: 18px;
   color: #2563eb; /* bleu */
+}
+
+.back-button {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.back-button:hover {
+  background-color: #e9ecef;
+  transform: translateX(-5px);
+}
+
+/* Bouton d'erreur */
+.error-button {
+  background-color: #5b7cfc;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.error-button:hover {
+  background-color: #4a66d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 124, 252, 0.3);
 }
