@@ -4,24 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-const courses = [
-  {
-    title: "Instagram Marketing Hacks",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
-  },
-  {
-    title: "Google Adsense Hacks",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #fbc7a4 0%, #f9d3b4 100%)",
-  },
-  {
-    title: "Hit A Backhand Like Pro",
-    description: "Enhancing Learning Engagement through thoughtful UI/UX",
-    //color: "linear-gradient(135deg, #f9c1d9 0%, #fbc4d9 100%)",
-  },
-];
+import { courses } from "../mock_data/courses";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -71,13 +54,12 @@ const Homepage = () => {
         <section className="courses-section">
           <h2>Featured Courses</h2>
           <div className="courses-grid">
-            {courses.map((course, idx) => (
+            {courses.slice(0, 10).map((course, idx) => (
               <CourseCard
-                key={idx}
-                course={course}
-                //color={course.color} // passe la couleur au composant
-              />
-            ))}
+                  key={idx}
+                  course={course}
+                />
+              ))}
           </div>
         </section>
       </div>
