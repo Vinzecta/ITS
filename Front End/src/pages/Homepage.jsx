@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { courses } from "../mock_data/courses";
+import { courses } from "../components/ListCourse";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -54,10 +54,11 @@ const Homepage = () => {
         <section className="courses-section">
           <h2>Featured Courses</h2>
           <div className="courses-grid">
-            {courses.slice(0, 10).map((course, idx) => (
+            {courses.slice(0, 6).map((course, idx) => (
               <CourseCard
                   key={idx}
                   course={course}
+                  onClick={() => navigate(`/course/${course.id}`)}
                 />
               ))}
           </div>

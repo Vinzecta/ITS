@@ -2,8 +2,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../styles/CoursePage.css";
-import { courses } from '../mock_data/courses.jsx';
+// import "../styles/CoursePage.css";
+import "../styles/CourseRegistered.css";
+import { courses } from '../components/ListCourse.jsx';
+//import { courses } from '../mock_data/courses.jsx';
 
 // Lưu danh sách course đã đăng ký (mock)
 export let myCoursesIds = [];
@@ -13,7 +15,7 @@ const CoursesPage = () => {
   const navigate = useNavigate();
   const course = courses.find(c => c.id === parseInt(id));
 
-  const [inputPassword, setInputPassword] = useState(""); // password người dùng nhập
+  //const [inputPassword, setInputPassword] = useState(""); // password người dùng nhập
 
   const handleRegister = () => {
     if (!course) return;
@@ -79,47 +81,39 @@ const CoursesPage = () => {
   return (
     <>
       <Header />
-      <div className="course-detail !px-4">
-        <button className="back-button !mb-4" onClick={() => navigate('/explore-courses')}>
-          ← Back To Explore
-        </button>
 
-        <h1 className="text-3xl font-bold text-center !mb-6">{course.title}</h1>
-
-        <h2 className="text-xl font-semibold !mt-4">Course Description</h2>
-        <p>{course.description}</p>
-
-        <h2 className="text-xl font-semibold !mt-4">Units & Lessons</h2>
-        {course.units.map((unit) => (
-          <div key={unit.unitId} className="unit !mb-4">
-            <h3 className="font-semibold">{unit.unitTitle}</h3>
-            <ul className="list-disc list-inside !ml-4">
-              {unit.lessons.map((lesson) => (
-                <li key={lesson.lessonId}>
-                  <strong>{lesson.lessonTitle}:</strong> {lesson.content}
-                </li>
-              ))}
-            </ul>
+        <div className="course-hero">
+          <div className="course-hero-left">
+            <h1>{course.title}</h1>
+            <p>{course.description}</p>
           </div>
-        ))}
+          
+          <div className="course-hero-right">
+            <button
+              className="register-button"
+              onClick={handleRegister}
+            >
+              Register
+            </button>
+          </div>
+        </div>
+
+        <div className="course-detail-card !px-4">
+        <h4>Description</h4>
+        <p>{course.detailedDescription}</p>
+
+        <h4>Learning Objectives</h4>
+        <ul>
+          {course.learningOutcomes?.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
 
         {/* 🔑 Password Input */}
         <div className="mt-6 flex flex-col max-w-sm">
-          {/* <label htmlFor="course-password" className="mb-2 font-semibold">Enter Course Password:</label>
-          <input
-            type="password"
-            id="course-password"
-            value={inputPassword}
-            onChange={(e) => setInputPassword(e.target.value)}
-            placeholder="Enter password..."
-            className="!px-3 !py-2 border rounded !mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          /> */}
-          <button
-            className="!px-4 !py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleRegister}
-          >
-            Register to the Course
-          </button>
+          <button className="back-button !mt-6 !mb-4 text-sm"  onClick={() => navigate('/explore-courses')}>
+          ← Back To Explore
+        </button>
         </div>
       </div>
       <Footer />

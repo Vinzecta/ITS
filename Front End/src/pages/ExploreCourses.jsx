@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CourseCard from "../components/CourseCard";
-import { courses } from "../mock_data/courses.jsx";
+import { courses } from "../components/ListCourse";
+//import { courses } from "../mock_data/courses.jsx";
 
 const ITEMS_PER_PAGE = 9;
 

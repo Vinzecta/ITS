@@ -50,8 +50,10 @@ const MyCoursePage = () => {
     <>
       <Header />
       <div className="course-hero">
-        <h1>{course.title}</h1>
-        <p>{course.description}</p>
+        <div className="course-hero-left">
+            <h1>{course.title}</h1>
+            <p>{course.description}</p>
+        </div>
       </div>
       <div className="course-layout">
         {/* SIDEBAR */}
