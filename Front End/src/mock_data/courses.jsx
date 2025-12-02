@@ -1,8 +1,11 @@
 // src/data/courses.js
 
-// Generate 100 mock courses with units & lessons
+// Generate 100 mock courses with units, lessons, and password
 export const courses = Array.from({ length: 100 }, (_, index) => {
   const id = index + 1;
+
+  // Generate a simple password, ví dụ "course001", "course002", ...
+  const password = `course${String(id).padStart(3, "0")}`;
 
   return {
     id,
@@ -72,6 +75,8 @@ export const courses = Array.from({ length: 100 }, (_, index) => {
         "professional productivity",
       ][index % 10]
     }.`,
+
+    password, // <-- Added password
 
     units: [
       {
