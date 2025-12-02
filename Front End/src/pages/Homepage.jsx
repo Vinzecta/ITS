@@ -21,18 +21,24 @@ const Homepage = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: token,
+              'Authorization': localStorage.getItem('token') || ''
             },
           });
   
           const data = await response.json();
-          console.log("Response data:", data.error);
-          if (data.error) {
-            navigate("/invalid-user")
+          if (!response.ok) {
+            if (data.error) {
+              navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
+            }
           }
           
         } catch (err) {
-          alert("Fail to render page")
+          alert(err.message)
         }
       };
   

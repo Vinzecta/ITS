@@ -48,35 +48,41 @@ const CoursesPage = () => {
   }
 
   useEffect(() => {
-        const studentRender = async () => {
-          const token = localStorage.getItem("token");
-          if (!token) {
-            navigate("/login");
-            return;
-          }
-    
-          try {
-            const response = await fetch("http://localhost/its/student_render", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: token,
-              },
-            });
-    
-            const data = await response.json();
-            console.log("Response data:", data.error);
+      const studentRender = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+  
+        try {
+          const response = await fetch("http://localhost/its/student_render", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': localStorage.getItem('token') || ''
+            },
+          });
+  
+          const data = await response.json();
+          if (!response.ok) {
             if (data.error) {
               navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
             }
-            
-          } catch (err) {
-            alert("Fail to render page")
           }
-        };
-    
-        studentRender();
-      }, []);
+          
+        } catch (err) {
+          alert(err.message)
+        }
+      };
+  
+      studentRender();
+    }, []);
 
   return (
     <>

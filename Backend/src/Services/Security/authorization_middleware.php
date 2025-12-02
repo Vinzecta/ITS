@@ -32,8 +32,8 @@ class authorization_middleware {
             }
         }catch(Exception $e) {
             http_response_code(401);
-            echo json_encode(value: ['JWT token: ' => $jwt_token]);
-            echo json_encode(value: ['error' => $e->getMessage()]);
+            echo json_encode(value: ['JWT token: ' => $jwt_token, 'error' => $e->getMessage()]);
+            // echo json_encode(value: ['error' => $e->getMessage()]);
             exit;
         }
 

@@ -40,6 +40,9 @@ export default function Login() {
                     const token = response.jwt_token;
                     localStorage.setItem("token", token);
                     navigate(response.navigation);
+                } else {
+                    tempServerError = "Invalid email or password!";
+                    setServerError(tempServerError);
                 }
                 
            } catch (err) {

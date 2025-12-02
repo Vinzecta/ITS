@@ -5,10 +5,11 @@ import Footer from "../components/Footer";
 import "../styles/CourseRegistered.css";
 import { courses } from "../components/ListCourse.jsx";
 import { FileText, Download } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const MyCoursePage = () => {
   const { id } = useParams();
   const [activeSection, setActiveSection] = useState("overview");
+  const navigate = useNavigate();
 
   const course = courses.find((c) => c.id === parseInt(id));
 
@@ -29,18 +30,24 @@ const MyCoursePage = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: token,
+              'Authorization': localStorage.getItem('token') || ''
             },
           });
   
           const data = await response.json();
-          console.log("Response data:", data.error);
-          if (data.error) {
-            navigate("/invalid-user")
+          if (!response.ok) {
+            if (data.error) {
+              navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
+            }
           }
           
         } catch (err) {
-          alert("Fail to render page")
+          alert(err.message)
         }
       };
   

@@ -6,7 +6,6 @@ import CourseCard from "../components/CourseCard";
 import { courses } from "../components/ListCourse";
 //import { courses } from "../mock_data/courses";
 import { myCoursesIds } from "./CoursePage";
-
 const ITEMS_PER_PAGE = 9;
 
 const MyCourses = () => {
@@ -45,18 +44,24 @@ const MyCourses = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: token,
+              'Authorization': localStorage.getItem('token') || ''
             },
           });
   
           const data = await response.json();
-          console.log("Response data:", data.error);
-          if (data.error) {
-            navigate("/invalid-user")
+          if (!response.ok) {
+            if (data.error) {
+              navigate("/invalid-user")
+              return;
+            } else {
+              localStorage.removeItem("token");
+              navigate("/login");
+              return;
+            }
           }
           
         } catch (err) {
-          alert("Fail to render page")
+          alert(err.message)
         }
       };
   

@@ -4,6 +4,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useNavigate } from 'react-router-dom';
+import { ErrorMessage } from './ErrorMessage';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -14,6 +15,7 @@ export default function UserManagement() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
+  const [modalError, setModalError] = useState("");
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -46,7 +48,11 @@ export default function UserManagement() {
         return;
       }
 
-      alert("User created successfully!");
+      if (data.message === "This email has been registered!") {
+        setModalError("This email has been registered!");
+        return;
+      }
+
       setShowModal(false);
       setForm({ email: "", password: "", name: "", role: "Student" });
       fetchUsers();
@@ -82,7 +88,7 @@ export default function UserManagement() {
         return;
       }
 
-      alert("User deleted successfully");
+      // alert("User deleted successfully");
       setShowDeleteConfirm(false);
       setUserToDelete(null);
       fetchUsers();
@@ -109,7 +115,7 @@ export default function UserManagement() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('token') || '',
+            'Authorization': localStorage.getItem('token'),
           },
         }
       );
@@ -184,7 +190,7 @@ export default function UserManagement() {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center !z-50">
           <div className="bg-white !p-6 rounded-xl shadow-xl w-full max-w-md flex flex-col gap-4">
             <h3 className="text-lg font-bold text-slate-800">Create New User</h3>
-
+            {modalError && <ErrorMessage error={modalError} />}
             <input
               type="text"
               placeholder="Email"
