@@ -19,10 +19,10 @@ const CoursesPage = () => {
     if (!course) return;
 
     // Kiểm tra password
-    if (course.password !== inputPassword) {
-      alert("Incorrect password! Please enter the correct course password.");
-      return;
-    }
+    // if (course.password !== inputPassword) {
+    //   alert("Incorrect password! Please enter the correct course password.");
+    //   return;
+    // }
 
     // Kiểm tra đã đăng ký chưa
     if (myCoursesIds.includes(course.id)) {
@@ -33,7 +33,6 @@ const CoursesPage = () => {
     // Thêm vào danh sách course đã đăng ký
     myCoursesIds.push(course.id);
     alert("The course has been successfully added to My Courses!");
-    setInputPassword(""); // reset input
   };
 
   if (!course) {
@@ -106,7 +105,7 @@ const CoursesPage = () => {
 
         {/* 🔑 Password Input */}
         <div className="mt-6 flex flex-col max-w-sm">
-          <label htmlFor="course-password" className="mb-2 font-semibold">Enter Course Password:</label>
+          {/* <label htmlFor="course-password" className="mb-2 font-semibold">Enter Course Password:</label>
           <input
             type="password"
             id="course-password"
@@ -114,7 +113,7 @@ const CoursesPage = () => {
             onChange={(e) => setInputPassword(e.target.value)}
             placeholder="Enter password..."
             className="!px-3 !py-2 border rounded !mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          /> */}
           <button
             className="!px-4 !py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={handleRegister}
