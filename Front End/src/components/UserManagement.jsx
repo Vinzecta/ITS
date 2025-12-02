@@ -119,15 +119,8 @@ export default function UserManagement() {
         setUsers(data.body || []);
         setError(null);
       } else {
-        if (response.status === 403) {
-          navigate('/invalid-user');
-        } else {
           setError(data.message || data.error || 'Failed to fetch users');
-        }
-      }
-      if (!response.ok) {
-        setError(data.message || data.error || 'Failed to fetch users');
-        return;
+          return;
       }
     } catch (err) {
       setError('Network error: Unable to fetch users');

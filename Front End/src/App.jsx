@@ -7,8 +7,9 @@ import ExploreCourses from "./pages/ExploreCourses";
 import MyCourses from "./pages/MyCourses";
 import CoursesPage from "./pages/CoursePage";
 import CoursesDetailPage from "./pages/CourseRegisteredPage";
-import AdminLayout from "./components/AdminMenu";
+import AdminDashboard from "./pages/AdminDashboard";
 import InvalidUser from "./pages/InvalidUser";
+import TutorHomepage from "./pages/TutorHomepage";
 
 
 const App = () => {
@@ -23,8 +24,9 @@ const App = () => {
           <Route path="/my-courses" element={<MyCourses />} />
           <Route path="/course/:id" element={<CoursesPage />} />
           <Route path="/my-course/:id" element={<CoursesDetailPage />} />
-          <Route path="/admin-dashboard" element={<AdminLayout />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/invalid-user" element={<InvalidUser />} />
+          <Route path="/tutor-homepage" element={<TutorHomepage />} />
         </Routes>
       </Router>
   );

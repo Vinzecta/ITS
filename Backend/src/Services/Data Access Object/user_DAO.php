@@ -11,7 +11,7 @@
                 $this->conn->beginTransaction();
 
                 // Determine activation status
-                $is_active = ($role === 'Student');
+                $is_active = true;
 
                 // Insert into user table
                 $sql = 'INSERT INTO user (email, password, role, is_active) VALUES (?, ?, ?, ?)';

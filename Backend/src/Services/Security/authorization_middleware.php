@@ -7,9 +7,9 @@ class authorization_middleware {
     public function __construct($jwt_service) {
         $this->jwt_service = $jwt_service;
         $this->actions_list_per_role = [
-            'student' => [],
-            'teacher' => ['teacher_profile'],
-            'admin' => ['admin_create', 'display_users', 'admin_delete']
+            'student' => ['student_render'],
+            'teacher' => ['teacher_profile', 'tutor_render'],
+            'admin' => ['admin_create', 'display_users', 'admin_delete', 'admin_render']
         ];
     }
 

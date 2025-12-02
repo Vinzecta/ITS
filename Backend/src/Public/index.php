@@ -203,6 +203,25 @@ try {
                         http_response_code(500);
                         echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);
                     }
+                    break;
+
+                case 'tutor_render':
+                    $authorization_middleware->authorize_request($segments[1]);
+                    http_response_code(200);
+                    echo json_encode(['message' => 'Reached GET tutor_render route', 'uri' => $request_uri]);
+                    break;
+
+                case 'student_render':
+                    $authorization_middleware->authorize_request($segments[1]);
+                    http_response_code(200);
+                    echo json_encode(['message' => 'Reached GET student_render route', 'uri' => $request_uri]);
+                    break;
+
+                case 'admin_render':
+                    $authorization_middleware->authorize_request($segments[1]);
+                    http_response_code(200);
+                    echo json_encode(['message' => 'Reached GET admin_render route', 'uri' => $request_uri]);
+                    break;
                 default:
                     http_response_code(404);
                     break;

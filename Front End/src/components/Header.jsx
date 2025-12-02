@@ -73,12 +73,11 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); 
+    localStorage.removeItem("token"); 
     navigate(0);
   };
 
-  const user = localStorage.getItem("user"); 
-  console.log(user);// null nếu chưa login
+  const user = localStorage.getItem("token"); 
 
   return (
     <header className="header">
