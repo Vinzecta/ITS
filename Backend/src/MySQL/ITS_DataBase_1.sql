@@ -2,17 +2,6 @@ CREATE DATABASE IF NOT EXISTS its;
 
 USE its;
 
-
-CREATE TABLE role (
-
-   role_name VARCHAR(50) PRIMARY KEY,
-
-   default_permission TEXT
-
-) ENGINE=InnoDB;
-
-
-
 CREATE TABLE `user` (
 
   user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -23,7 +12,7 @@ CREATE TABLE `user` (
 
   name VARCHAR(200),
 
-  role ENUM('ttudent', 'teacher', 'admin'),
+  role ENUM('student', 'teacher', 'admin'),
 
   is_active BOOLEAN DEFAULT 1,
 
