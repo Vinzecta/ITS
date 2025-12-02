@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *'); // Adjust for production
 header('Access-Control-Allow-Methods: POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
@@ -191,13 +191,14 @@ try {
                 
                 case 'display_users':
                     try {
+                        $authorization_middleware->authorize_request($segments[1]);
                         $security_service = new security_service();
                         $admin_controller = new admin_controller($security_service);
                         
                         $result = $admin_controller->get_all_users();
                         
                         http_response_code($result['status']);
-                        echo json_encode($result['body']);
+                        echo json_encode(['status' => $result['status'], 'body' => $result['body']]);
                     } catch (Exception $e) {
                         http_response_code(500);
                         echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);

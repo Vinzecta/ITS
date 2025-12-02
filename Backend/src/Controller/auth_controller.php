@@ -21,6 +21,7 @@ class auth_controller {
             $respond = $this->security_service->user_login($email, $password);
             return  [
                         "status" => 200,
+                        "success" => $respond['success'],
                         "body" => $respond['body']
                     ];
         } catch(Exception $e) {

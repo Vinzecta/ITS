@@ -8,6 +8,7 @@ import MyCourses from "./pages/MyCourses";
 import CoursesPage from "./pages/CoursePage";
 import CoursesDetailPage from "./pages/CourseRegisteredPage";
 import AdminLayout from "./components/AdminMenu";
+import InvalidUser from "./pages/InvalidUser";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/course/:id" element={<CoursesPage />} />
           <Route path="/my-course/:id" element={<CoursesDetailPage />} />
           <Route path="/admin-dashboard" element={<AdminLayout />} />
+          <Route path="/invalid-user" element={<InvalidUser />} />
         </Routes>
       </Router>
   );

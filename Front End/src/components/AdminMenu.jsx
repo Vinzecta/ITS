@@ -11,10 +11,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState } from 'react';
 import UserManagement from "./UserManagement";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLayout() {
   const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   
   const isUser = pathname.startsWith("/admin-dashboard/user-management") || pathname === "/admin-dashboard";
   const isCourse = pathname.startsWith("/admin-dashboard/course-management");
@@ -139,7 +146,7 @@ export default function AdminLayout() {
 
           {/* Sidebar Footer */}
           <div className="p-4 border-t border-slate-200 !mt-2">
-            <button className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-red-50 transition-all group !mt-2 cursor-pointer">
+            <button onClick={handleLogOut} className="w-full flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-red-50 transition-all group !mt-2 cursor-pointer">
               <div className="w-10 h-10 rounded-lg bg-slate-100 group-hover:bg-red-100 flex items-center justify-center transition-all">
                 <LogoutOutlinedIcon fontSize="small" className="text-slate-600 group-hover:text-red-600" />
               </div>

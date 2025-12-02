@@ -3,6 +3,7 @@ import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -12,6 +13,7 @@ export default function UserManagement() {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -95,6 +97,10 @@ export default function UserManagement() {
   }, []);
 
   const fetchUsers = async () => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+      return;
+    }
     try {
       setLoading(true);
       const response = await fetch(
@@ -103,17 +109,25 @@ export default function UserManagement() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('token') || '',
           },
         }
       );
 
       const data = await response.json();
-
       if (response.ok) {
-        setUsers(data || []);
+        setUsers(data.body || []);
         setError(null);
       } else {
-        setError(data.error || 'Failed to fetch users');
+        if (response.status === 403) {
+          navigate('/invalid-user');
+        } else {
+          setError(data.message || data.error || 'Failed to fetch users');
+        }
+      }
+      if (!response.ok) {
+        setError(data.message || data.error || 'Failed to fetch users');
+        return;
       }
     } catch (err) {
       setError('Network error: Unable to fetch users');

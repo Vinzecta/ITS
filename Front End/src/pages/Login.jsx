@@ -36,13 +36,10 @@ export default function Login() {
         if (Object.values(newError).every(value => value == "")) {
            try {
                 const response = await loginService.login(input.email, input.password);
-                if (1) {
-                    
-                } else {
-                    tempServerError = "Invalid email or password! Please try again.";
-                    console.log(tempServerError);
-                    setServerError(tempServerError);
-                }
+                console.log(response)
+                const token = response.jwt_token;
+                console.log(token);
+                localStorage.setItem("token", token);
            } catch (err) {
             tempServerError = err.message;
             setServerError(tempServerError);

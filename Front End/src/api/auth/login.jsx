@@ -13,7 +13,7 @@ export const loginService = {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (!response.ok) {
         throw new Error(data.message);
